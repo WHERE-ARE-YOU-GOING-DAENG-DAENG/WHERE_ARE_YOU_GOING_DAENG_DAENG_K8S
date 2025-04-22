@@ -1,0 +1,36 @@
+# k8s-manifests/argo-apps/production-appset.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: production-apps-set
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: "https://github.com/WHERE-ARE-YOU-GOING-DAENG-DAENG/WHERE_ARE_YOU_GOING_DAENG_DAENG_K8S.git"
+        revision: main
+        directories:
+          - path: overlays/production/*
+  template:
+    metadata:
+      name: 'prod-{{path.basename}}'
+      namespace: argocd
+    spec:
+      project: default
+
+      source:
+        repoURL: "https://github.com/WHERE-ARE-YOU-GOING-DAENG-DAENG/WHERE_ARE_YOU_GOING_DAENG_DAENG_K8S.git"
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: dangdang-where-going
+
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

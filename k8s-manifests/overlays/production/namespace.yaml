@@ -1,0 +1,5 @@
+# overlays/production/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dangdang-where-going

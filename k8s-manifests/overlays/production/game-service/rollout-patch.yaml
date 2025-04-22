@@ -1,0 +1,18 @@
+# overlays/production/game-service/rollout-patch.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: game-service-rollout # base/rollout.yaml 이름과 일치
+spec:
+  replicas: 2 # 게임 서비스 프로덕션 레플리카 수 (예시)
+  template:
+    spec:
+      containers:
+        - name: game-service # base/rollout.yaml 컨테이너 이름과 일치
+          resources: # 게임 서비스 프로덕션 리소스 설정 (예시)
+            requests:
+              cpu: 300m
+              memory: 768Mi
+            limits:
+              cpu: 1500m
+              memory: 1.5Gi

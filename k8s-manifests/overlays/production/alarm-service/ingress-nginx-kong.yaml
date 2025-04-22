@@ -1,0 +1,26 @@
+# overlays/production/alarm-service/ingress-nginx-kong.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  # 이 이름은 base/alarm-service/rollout.yaml 의 stableIngress 값과 일치해야 함
+  name: alarm-service-nginx-ingress # 서비스 이름으로 변경
+  namespace: dangdang-where-going
+  annotations:
+    kubernetes.io/ingress.class: nginx # Nginx Ingress Controller 사용
+    # 예: 경로 재작성 '/alarm-api/foo' -> Kong 에는 '/foo' 로 전달
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: alarm.prod.your-domain.com # ALB Ingress 와 동일 호스트
+      http:
+        paths:
+          # Kong으로 전달할 경로 패턴 (예: /alarm-api 로 시작)
+          - path: /alarm-api(/|$)(.*) # 알람 서비스에 맞는 경로로 수정
+            pathType: Prefix
+            backend:
+              service:
+                # Kong Proxy 서비스 이름 (Helm 설치 시 확인, 보통 kong-proxy)
+                name: kong-proxy
+                port:
+                  # Kong Proxy 서비스 HTTP 포트 (보통 80)
+                  number: 80

@@ -1,0 +1,13 @@
+# base/game-service/service-stable.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-service-stable # 서비스 이름으로 변경
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: game-service # 서비스 이름으로 변경

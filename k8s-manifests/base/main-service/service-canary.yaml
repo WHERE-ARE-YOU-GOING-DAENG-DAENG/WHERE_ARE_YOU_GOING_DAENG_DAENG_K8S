@@ -1,0 +1,13 @@
+# base/main-service/service-canary.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-service-canary # 카나리 버전 서비스 이름
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: main-service # Rollout 의 .spec.selector.matchLabels 와 일치

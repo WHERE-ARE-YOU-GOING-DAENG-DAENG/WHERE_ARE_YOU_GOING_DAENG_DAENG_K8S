@@ -1,0 +1,13 @@
+# base/alarm-service/service-stable.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: alarm-service-stable # 서비스 이름으로 변경
+spec:
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: alarm-service # 서비스 이름으로 변경

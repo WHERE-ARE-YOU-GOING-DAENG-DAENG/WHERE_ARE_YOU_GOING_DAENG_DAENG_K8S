@@ -1,0 +1,18 @@
+# overlays/production/main-service/rollout-patch.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: main-service-rollout # base/rollout.yaml 이름과 일치
+spec:
+  replicas: 3 # 프로덕션 레플리카 수
+  template:
+    spec:
+      containers:
+        - name: main-service # base/rollout.yaml 컨테이너 이름과 일치
+          resources: # 프로덕션 리소스 설정
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi

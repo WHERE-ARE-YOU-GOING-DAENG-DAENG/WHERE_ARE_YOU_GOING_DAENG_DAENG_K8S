@@ -1,0 +1,18 @@
+# overlays/production/alarm-service/rollout-patch.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: alarm-service-rollout # base/rollout.yaml 이름과 일치
+spec:
+  replicas: 2 # 알람 서비스 프로덕션 레플리카 수 (예시)
+  template:
+    spec:
+      containers:
+        - name: alarm-service # base/rollout.yaml 컨테이너 이름과 일치
+          resources: # 알람 서비스 프로덕션 리소스 설정 (예시)
+            requests:
+              cpu: 150m
+              memory: 384Mi
+            limits:
+              cpu: 750m
+              memory: 768Mi

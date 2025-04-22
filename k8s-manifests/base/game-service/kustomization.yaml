@@ -1,0 +1,9 @@
+# base/game-service/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dangdang-where-going # 애플리케이션 네임스페이스
+
+resources:
+  - rollout.yaml
+  - service-stable.yaml
+  - service-canary.yaml

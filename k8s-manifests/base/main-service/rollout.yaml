@@ -1,0 +1,57 @@
+# base/main-service/rollout.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: main-service-rollout # 고유한 Rollout 이름
+spec:
+  replicas: 1 # Base 에서는 최소값 설정
+  selector:
+    matchLabels:
+      app: main-service
+  template:
+    metadata:
+      labels:
+        app: main-service
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: main-service # 컨테이너 이름 (kustomization images 와 매칭)
+          image: <YOUR_DOCKER_REGISTRY>/main-service:placeholder # 플레이스홀더 이미지
+          ports:
+            - name: http
+              containerPort: 8080 # 애플리케이션 내부 포트
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness # Readiness Probe 경로
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness # Liveness Probe 경로
+              port: http
+            initialDelaySeconds: 40
+            periodSeconds: 15
+            failureThreshold: 3
+          resources: # 기본 리소스 설정
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+  strategy:
+    canary:
+      trafficRouting:
+        nginx:
+          # Nginx -> Kong 라우팅을 정의하는 Ingress 리소스 이름
+          # overlays/production/main-service/ingress-nginx-kong.yaml 의 metadata.name 과 일치해야 함
+          stableIngress: main-service-nginx-ingress
+      steps:
+        - setWeight: 10
+        - pause: { duration: 1m }
+        - setWeight: 50
+        - pause: { duration: 5m }
+        - setWeight: 100

@@ -1,0 +1,21 @@
+# overlays/production/game-service/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dangdang-where-going # 네임스페이스 지정
+
+# Base 디렉토리 참조
+resources:
+  - ../../../base/game-service # 서비스 이름으로 변경
+  # 환경별 리소스 추가
+  - ingress-alb.yaml
+  - ingress-nginx-kong.yaml
+
+# 환경별 패치 적용
+patchesStrategicMerge:
+  - rollout-patch.yaml
+
+# 배포될 최종 이미지 태그 설정 (CI/CD가 업데이트)
+images:
+  - name: <YOUR_DOCKER_REGISTRY>/game-service # base/rollout.yaml 이미지 이름과 일치
+    newName: <YOUR_DOCKER_REGISTRY>/game-service # 필요시 이름 변경
+    newTag: <YOUR_INITIAL_PROD_TAG_game> # 게임 서비스 초기 프로덕션 버전 태그

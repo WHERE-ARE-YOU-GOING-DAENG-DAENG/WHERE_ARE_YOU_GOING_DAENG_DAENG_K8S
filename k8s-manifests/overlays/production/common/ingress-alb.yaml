@@ -1,0 +1,8 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-service-alb-ingress
+  namespace: dangdang-where-going
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing

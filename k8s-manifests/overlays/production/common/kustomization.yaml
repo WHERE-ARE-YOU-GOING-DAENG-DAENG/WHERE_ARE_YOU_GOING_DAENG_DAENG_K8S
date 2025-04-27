@@ -1,0 +1,12 @@
+# overlays/production/common/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - cluster-secret-store.yaml
+  - external-secret-main.yaml
+  - external-secret-kong-jwt.yaml
+  - ingress-alb.yaml
+  - jwt-cookie-config.yaml
+  - kong-consumer.yaml
+  - kong-jwt-credential.yaml

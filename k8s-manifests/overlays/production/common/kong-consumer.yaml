@@ -1,0 +1,6 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: application-consumer # Consumer 이름 (임의 지정)
+  namespace: kong           # Kong 네임스페이스
+username: application-user # Consumer 식별자

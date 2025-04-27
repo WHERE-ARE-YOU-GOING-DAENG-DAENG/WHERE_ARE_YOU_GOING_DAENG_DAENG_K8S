@@ -1,0 +1,12 @@
+# overlays/production/common/jwt-cookie-config.yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: jwt-cookie-validation-prod
+  namespace: kong
+config:
+  cookie_names:
+    - Authorization
+  claims_to_verify:
+    - exp
+plugin: jwt

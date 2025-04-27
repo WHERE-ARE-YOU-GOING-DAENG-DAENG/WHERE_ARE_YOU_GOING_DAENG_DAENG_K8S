@@ -1,0 +1,30 @@
+# overlays/production/main-service/kong-ingress-main-public.yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: main-service-public-king
+  namespace: dangdang-where-going
+# Public 경로 정의 (JWT 없음).
+# Kong의 라우팅 우선순위(Longest Prefix Match)에 따라 Private 경로보다 먼저 매칭됨.
+# 메소드 제한은 Spring Security에서 처리하는 것을 가정.
+route:
+  # permitAll() 에 명시된 경로들을 추가 (Nginx rewrite 후 기준)
+  paths:
+    # Exact Paths
+    - /api/v1/loginSuccess
+    - /api/v1/signup
+    - /api/v1/user/duplicateNickname
+    - /api/v2/region/owners
+    - /api/v2/story
+    - /api/v2/auth
+    # Path Prefixes
+    - /login/
+    - /api/v1/places/
+    - /api/v1/banners/
+    - /api/v1/reviews/place/
+    - /api/v1/visit/place/
+    - /api/v2/story/detail/
+    - /api/v2/user-service/
+  preserve_host: true
+  strip_path: false # Nginx에서 이미 rewrite 함
+  service: main-service-ksvc # main-service 용 KongService

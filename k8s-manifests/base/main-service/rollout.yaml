@@ -15,8 +15,8 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-        - name: main-service # 컨테이너 이름 (kustomization images 와 매칭)
-          image: <YOUR_DOCKER_REGISTRY>/main-service:placeholder # 플레이스홀더 이미지
+        - name: main-service # 컨테이너 이름
+          image: main-service:placeholder # <--- 이 부분을 단순화
           ports:
             - name: http
               containerPort: 8080 # 애플리케이션 내부 포트

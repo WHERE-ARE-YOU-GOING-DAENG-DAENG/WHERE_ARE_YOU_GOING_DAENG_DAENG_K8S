@@ -1,0 +1,14 @@
+# overlays/production/main-service/kong-ingress-main-private.yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: main-service-private-king
+  namespace: dangdang-where-going
+  annotations:
+    konghq.com/plugins: kong.jwt-cookie-validation-prod
+route:
+  paths:
+    - /
+  preserve_host: true
+  strip_path: false
+  service: main-service-ksvc

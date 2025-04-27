@@ -1,0 +1,12 @@
+# overlays/production/main-service/kong-service-main.yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongService
+metadata:
+  # KongIngress에서 참조할 이름
+  name: main-service-ksvc
+  namespace: dangdang-where-going
+spec:
+  # main-service가 내부적으로 사용하는 프로토콜 (http 또는 https)
+  protocol: http
+  # main-service의 Kubernetes Service가 노출하는 포트 번호 (실제 포트로 수정 필요!)
+  port: 8080 # <-- main-service의 실제 포트로 수정하세요

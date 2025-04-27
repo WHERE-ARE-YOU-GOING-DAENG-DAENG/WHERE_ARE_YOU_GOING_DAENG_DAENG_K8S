@@ -8,3 +8,4 @@ resources:
   - ./main-service
   - ./game-service
   - ./alarm-service
+  - ./common

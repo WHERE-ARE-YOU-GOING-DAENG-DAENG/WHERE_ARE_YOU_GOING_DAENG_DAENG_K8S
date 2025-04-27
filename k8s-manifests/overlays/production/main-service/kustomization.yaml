@@ -3,19 +3,19 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: dangdang-where-going # 네임스페이스 지정
 
-# Base 디렉토리 참조
 resources:
   - ../../../base/main-service
-  # 이 환경에만 필요한 리소스 추가
+  # 환경별 리소스 추가
   - ingress-alb.yaml
-  - ingress-nginx-kong.yaml
+  - ingress-nginx-kong.yaml     # rewrite-target 활성화된 버전 사용 권장
+  - kong-service-main.yaml      # main-service 용 KongService (포트 확인!)
+  - kong-ingress-main-public.yaml # Public 경로용 KongIngress <--- 추가
+  - kong-ingress-main-private.yaml # Private 경로용 KongIngress <--- 추가
 
-# Base 리소스에 적용할 패치
 patchesStrategicMerge:
   - rollout-patch.yaml
 
-# 이 환경에서 사용할 최종 이미지 태그 (CI/CD가 업데이트)
 images:
-  - name: <YOUR_DOCKER_REGISTRY>/main-service # base/rollout.yaml 의 이미지 이름과 일치
-    newName: <YOUR_DOCKER_REGISTRY>/main-service # 필요시 이름 변경
-    newTag: <YOUR_INITIAL_PROD_TAG_main> # 초기 프로덕션 버전 태그
+  - name: main-service
+    newName: app_repo_ecr
+    newTag: placeholder

@@ -10,7 +10,7 @@ spec:
         repoURL: https://github.com/WHERE-ARE-YOU-GOING-DAENG-DAENG/WHERE_ARE_YOU_GOING_DAENG_DAENG_K8S.git
         revision: main
         directories:
-          - path: overlays/production/*
+          - path: k8s-manifests/overlays/production/*
   template:
     metadata:
       name: 'prod-{{path.basename}}'

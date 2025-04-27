@@ -6,6 +6,4 @@ resources:
   - namespace.yaml
   # 각 서비스의 Production 오버레이 디렉토리 참조
   - ./main-service
-  - ./game-service
-  - ./alarm-service
   - ./common

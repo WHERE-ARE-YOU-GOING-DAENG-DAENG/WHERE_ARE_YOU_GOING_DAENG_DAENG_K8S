@@ -3,7 +3,6 @@ apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 metadata:
   name: jwt-cookie-validation-prod
-  namespace: kong
 config:
   cookie_names:
     - Authorization

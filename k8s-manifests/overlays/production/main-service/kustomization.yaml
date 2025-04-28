@@ -11,6 +11,7 @@ resources:
   - kong-service-main.yaml      # main-service 용 KongService (포트 확인!)
   - kong-ingress-main-public.yaml # Public 경로용 KongIngress <--- 추가
   - kong-ingress-main-private.yaml # Private 경로용 KongIngress <--- 추가
+  - external-secret-main.yaml
 
 patchesStrategicMerge:
   - rollout-patch.yaml

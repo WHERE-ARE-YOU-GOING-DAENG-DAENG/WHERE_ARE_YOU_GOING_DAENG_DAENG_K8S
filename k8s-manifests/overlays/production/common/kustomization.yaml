@@ -4,9 +4,7 @@ kind: Kustomization
 
 resources:
   - cluster-secret-store.yaml
-  - external-secret-main.yaml
   - external-secret-kong-jwt.yaml
-  - ingress-alb.yaml
   - jwt-cookie-config.yaml
   - kong-consumer.yaml
   - kong-jwt-credential.yaml

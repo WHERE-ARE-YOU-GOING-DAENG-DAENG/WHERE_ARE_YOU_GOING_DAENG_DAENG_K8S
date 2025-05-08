@@ -1,5 +1,8 @@
+# k8s-manifests/overlays/production/main-service/main-service-consumer.yaml
 apiVersion: configuration.konghq.com/v1
 kind: KongConsumer
 metadata:
-  name: application-consumer # Consumer 이름 (임의 지정)
-username: application-user # Consumer 식별자
+  name: main-service-consumer
+  namespace: dangdang-where-going
+username: main-service-user
+# custom_id: main-service-custom-id

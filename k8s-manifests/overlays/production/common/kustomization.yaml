@@ -7,4 +7,3 @@ resources:
   - external-secret-kong-jwt.yaml
   - jwt-cookie-config.yaml
   - kong-consumer.yaml
-  - kong-jwt-credential.yaml
